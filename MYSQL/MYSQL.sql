@@ -1,0 +1,356 @@
+"""(1. What is SQL?
+SQL = Structured Query Language
+
+SQL is used to communicate with databases.
+
+Real-time examples:
+- Banking: Store customer and transaction details.
+- Shopping: Store products, prices, and customer orders.
+- Colleges: Store student names, marks, and attendance.
+- Hospitals: Store patient and doctor information.)"""
+
+
+- """ SQL stands for Structured Query Language.
+
+# A SQL database contain tables.Tables contain rows. Rows contain Colums. Every query you write targets this four-level hierarchy.
+
+2. Basic SQL concepts you must learn
+Introduction to SQL
+- What is SQL?
+SQL is a language used to communicate with databases. We use SQL to create, store, retrieve, update, and delete data.
+
+Simple real-time example:
+
+Imagine you are working in a shopping application like Amazon.
+
+You want to:
+-- Display all products.
+--Find a particular product.
+-- Change a product price.
+-- Delete an unavailable product.
+-- Find the highest-priced product."""
+
+--What is a database?
+"""A database is an organized collection of information that can be stored, accessed, managed, and updated.
+
+Think about your college.
+
+Your college maintains:
+- Student information
+- Teacher information
+- Course information
+- Attendance information
+- Examination results
+
+* Simple example:
+
+A database named college_db.
+
+It contains the following tables:
+college_db
+    |
+    |--- students
+    |
+    |--- teachers
+    |
+    |--- courses
+    |
+    |--- attendance
+    |
+    |--- results """
+
+-- What is a table?
+"""A table is a collection of related data arranged in rows and columns.
+You have student details organized into different fields. A database table works similarly.
+
+A database table stores data about a particular entity.
+
+For example:
+- Students table → Student details.
+- Employees table → Employee details.
+- Products table → Product details."""
+
+"""--* Rows and columns?
+-- A row represents one complete record in a table.
+
+* For example:
+ID	Name	Age	City
+1	Ravi	22	Hyderabad
+
+- A column represents a particular category or field of information in a table.
+
+For example:
+ID	Name	Age	City
+1	Ravi	22	Hyderabad
+2	Kiran	23	Warangal
+
+Here:
+- ID is one column.
+- Name is one column.
+- Age is one column.
+- City is one column.
+* * Database commands?
+
+- CREATE DATABASE
+- Create a database
+CREATE DATABASE college_db;
+
+
+- USE
+- Select the database
+USE college_db;
+
+- DROP DATABASE
+* * Table commands
+- CREATE TABLE
+- Create a table:
+CREATE TABLE students (
+    id INT,
+    name VARCHAR(50),
+    age INT,
+    city VARCHAR(50)
+);
+
+- ALTER TABLE
+- DROP TABLE
+- TRUNCATE TABLE
+* * Data types
+- INT
+- VARCHAR
+- DATE
+- FLOAT
+- DECIMAL:
+CREATE TABLE employees (
+    id INT,
+    name VARCHAR(50),
+    salary DECIMAL(10,2),
+    joining_date DATE
+);
+
+* * Insert data
+- INSERT INTO:
+INSERT INTO students
+VALUES
+(1, 'Ravi', 22, 'Hyderabad'),
+(2, 'Kiran', 23, 'Warangal'),
+(3, 'Priya', 21, 'Karimnagar');
+
+INSERT INTO employees (id, name)
+VALUES (2, 'Kiran');
+
+* * Retrieve data
+- SELECT:
+SELECT name, salary
+FROM employees;
+- SELECT *:
+SELECT * FROM students;
+
+- DISTINCT:
+SELECT DISTINCT city
+FROM students;
+
+- WHERE:
+SELECT *
+FROM students
+WHERE marks > 80;
+
+Conditions
+- AND
+- OR
+- NOT:
+
+-- AND
+SELECT *
+FROM employees
+WHERE salary > 20000 AND age > 22;
+
+-- OR
+SELECT *
+FROM employees
+WHERE city = 'Hyderabad' OR city = 'Warangal';
+
+-- NOT
+SELECT *
+FROM employees
+WHERE NOT city = 'Hyderabad';
+- BETWEEN:
+SELECT *
+FROM employees
+WHERE salary BETWEEN 20000 AND 50000;
+
+- IN:
+SELECT *
+FROM employees
+WHERE city IN ('Hyderabad', 'Warangal');
+
+- LIKE:
+SELECT *
+FROM employees
+WHERE name LIKE 'A%';
+
+* * Sorting and filtering:
+- ORDER BY:
+SELECT *
+FROM employees
+ORDER BY salary DESC;
+
+- LIMIT:
+SELECT *
+FROM employees
+LIMIT 5;
+
+* * Update and delete
+- UPDATE:
+UPDATE employees
+SET salary = 35000
+WHERE id = 1;
+
+- DELETE:
+DELETE FROM employees
+WHERE id = 1;
+
+Aggregate functions
+- COUNT()
+- SUM()
+- AVG()
+- MIN()
+- MAX()
+SELECT COUNT(*) FROM employees;
+
+SELECT SUM(salary) FROM employees;
+
+SELECT AVG(salary) FROM employees;
+
+SELECT MAX(salary) FROM employees;
+
+SELECT MIN(salary) FROM employees;
+
+
+""2. Intermediate Level – What you should learn next:
+1. Constraints
+Constraints are rules applied to table columns to maintain correct data.
+Constraint	       : Purpose
+PRIMARY KEY	       : Uniquely identifies records
+FOREIGN KEY	       : Connects related tables
+UNIQUE	           : Prevents duplicate values
+NOT NULL	       : Prevents missing values
+CHECK	           : Validates conditions
+DEFAULT	           : Provides a default value
+
+Example:
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    age INT CHECK (age >= 18)
+);
+Professional knowledge: Constraints maintain data integrity.
+2. GROUP BY
+GROUP BY combines records having the same value.
+
+Example: Count employees in each city.
+SELECT city, COUNT(*)
+FROM employees
+GROUP BY city;
+
+
+3. HAVING
+HAVING filters grouped results.
+SELECT city, COUNT(*)
+FROM employees
+GROUP BY city
+HAVING COUNT(*) > 5;
+
+
+Difference:
+- WHERE filters rows.
+- HAVING filters groups.
+4. Joins:
+Joins combine data from multiple tables.
+SELECT students.name, marks.marks
+FROM students
+INNER JOIN marks
+ON students.id = marks.student_id;
+Other joins:
+- LEFT JOIN
+- RIGHT JOIN
+- CROSS JOIN
+- FULL OUTER JOIN (not directly supported as a native join in MySQL)
+""3. Understand SQL with a practical example(commands)
+Step 1: Create a table:
+CREATE TABLE students (
+    id INT,
+    name VARCHAR(50),
+    age INT,
+    city VARCHAR(50),
+    marks INT
+);
+Step 2: Insert data:
+
+INSERT INTO students
+VALUES
+(1, 'Ravi', 22, 'Hyderabad', 85),
+(2, 'Kiran', 23, 'Warangal', 90),
+(3, 'Priya', 21, 'Hyderabad', 75),
+(4, 'Arun', 24, 'Karimnagar', 65),
+(5, 'Sita', 22, 'Nizamabad', 95);
+Step 3: Display all students:
+SELECT → What information do you need?
+FROM → Which table?
+WHERE → What condition?
+* SELECT * FROM students;
+Step 4: Display students who scored above 80:
+
+* SELECT * FROM students
+WHERE marks > 80;
+Step 5: Display students in Hyderabad:
+
+SELECT * FROM students
+WHERE city = 'Hyderabad';
+Step 6: Arrange students according to marks:
+
+SELECT * FROM students
+ORDER BY marks DESC;"""
+
+
+--*How to think logically in SQL?
+-- First understand the question.
+
+"""For example:
+
+Question: Find students who scored more than 80 marks.
+
+Think in three steps:
+1. What data do I need? → Student details.
+2. What condition do I need? → Marks greater than 80.
+3. Which SQL command do I need? → SELECT + WHERE.
+
+SELECT *
+FROM students
+WHERE marks > 80;
+
+* Another example:
+
+Question: Find the highest student mark.
+
+Think:
+1. I need student marks.
+2. I need the highest value.
+3. Which function? → MAX().
+SELECT MAX(marks)
+FROM students;
+
+
+
+
+
+Remember this thinking formula:
+        Understand the question
+                   |
+        Identify the required table
+                   |
+        Identify the condition
+                   |
+        Choose SQL commands
+                   |
+       Write query and check output
